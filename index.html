@@ -43,48 +43,92 @@
           <p>to</p>
           <input type="date" name="exit-date" class="form-control">
         </div>
-        <div id="ranking-area">
-          <div class="table-responsive">
-            <table class="table table-hover table-condensed">
-              <thead>
-                <tr>
-                  <th></th><!-- Direction arrow -->
-                  <th>±</th><!-- Change of Rank -->
-                  <th>Rank</th><!-- Rank -->
-                  <th>Name</th><!-- Name -->
-                  <th>±</th><!-- Change of Acc -->
-                  <th>Acc</th><!-- Acc -->
-                  <th>±</th><!-- Change of Play -->
-                  <th>Play</th><!-- Play -->
-                  <th>±</th><!-- Change of BP -->
-                  <th>BP</th><!-- BP -->
-                  <th>±</th><!-- Change of Bonus -->
-                  <th>Bonus</th><!-- Bonus -->
-                  <th>±</th><!-- Change of PP -->
-                  <th>PP</th><!-- PP -->
-                  <th>±</th><!-- Change of SS -->
-                  <th>SS</th><!-- SS -->
-                  <th>±</th><!-- Change of S -->
-                  <th>S</th><!-- S -->
-                  <th>±</th><!-- Change of A -->
-                  <th>A</th><!-- A -->
-                  <th>±</th><!-- Change of SS ~ A -->
-                  <th>SS ~ A</th><!-- SS ~ A -->
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td>
-                </tr>
-                <tr>
-                  <td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td>
-                </tr>
-                <tr>
-                  <td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <div id="ranking-area" class="table-responsive">
+          <table class="table table-hover table-condensed">
+            <colgroup id="col-rank" class="col-first">
+              <col span="1" class="direction-arrow">
+              <col span="1" class="change-value type-int">
+              <col span="1" class="current-value type-rank">
+            </colgroup>
+            <colgroup id="col-name">
+              <col span="1" class="current-value type-string">
+              <col span="1" class="difference-of-above">
+            </colgroup>
+            <colgroup id="col-acc">
+              <col span="1" class="change-value type-percentage">
+              <col span="1" class="current-value type-percentage">
+            </colgroup>
+            <colgroup id="col-play">
+              <col span="1" class="change-value type-int">
+              <col span="1" class="current-value type-int">
+            </colgroup>
+            <colgroup id="col-bp">
+              <col span="1" class="change-value type-int">
+              <col span="1" class="current-value type-int">
+            </colgroup>
+            <colgroup id="col-bonus">
+              <col span="1" class="change-value type-float">
+              <col span="1" class="current-value type-float">
+            </colgroup>
+            <colgroup id="col-pp">
+              <col span="1" class="change-value type-int">
+              <col span="1" class="current-value type-int">
+            </colgroup>
+            <colgroup id="col-ss">
+              <col span="1" class="change-value type-int">
+              <col span="1" class="current-value type-int">
+            </colgroup>
+            <colgroup id="col-s">
+              <col span="1" class="change-value type-int">
+              <col span="1" class="current-value type-int">
+            </colgroup>
+            <colgroup id="col-a">
+              <col span="1" class="change-value type-int">
+              <col span="1" class="current-value type-int">
+            </colgroup>
+            <colgroup id="col-ss-a" class="col-last">
+              <col span="1" class="change-value type-int">
+              <col span="1" class="current-value type-int">
+            </colgroup>
+            <thead>
+              <tr>
+                <th></th><!-- Direction arrow -->
+                <th>±</th><!-- Change of Rank -->
+                <th>Rank</th><!-- Rank -->
+                <th>Name</th><!-- Name -->
+                <th></th><!-- Difference of above -->
+                <th>±</th><!-- Change of Acc -->
+                <th>Acc</th><!-- Acc -->
+                <th>±</th><!-- Change of Play -->
+                <th>Play</th><!-- Play -->
+                <th>±</th><!-- Change of BP -->
+                <th>BP</th><!-- BP -->
+                <th>±</th><!-- Change of Bonus -->
+                <th>Bonus</th><!-- Bonus -->
+                <th>±</th><!-- Change of PP -->
+                <th>PP</th><!-- PP -->
+                <th>±</th><!-- Change of SS -->
+                <th>SS</th><!-- SS -->
+                <th>±</th><!-- Change of S -->
+                <th>S</th><!-- S -->
+                <th>±</th><!-- Change of A -->
+                <th>A</th><!-- A -->
+                <th>±</th><!-- Change of SS ~ A -->
+                <th>SS ~ A</th><!-- SS ~ A -->
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td>
+              </tr>
+              <tr>
+                <td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td>
+              </tr>
+              <tr>
+                <td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
       <footer class="container-fluid">
