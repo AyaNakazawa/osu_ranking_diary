@@ -93,6 +93,68 @@ header {
   border-right: 0;
 }
 
+/*.change-value, .difference-of-above {
+  display: none;
+}*/
+
+/* ranking-area thead */
+
+#ranking-area thead th {
+  font-size: 12px;
+  text-align: center;
+}
+
+#ranking-area thead th.th-symbol {
+  color: #888;
+}
+
+/* ranking-area tbody */
+
+#ranking-area tbody td {
+  font-size: 12px;
+}
+
+#ranking-area tbody td.current-value {
+  color: #333;
+}
+
+#ranking-area tbody td.change-value {
+  font-size: 10px;
+  color: #888;
+  font-style: italic;
+}
+
+#ranking-area tbody td.difference-of-above {
+  text-align: right;
+  font-style: italic;
+  font-size: 10px;
+}
+
+#ranking-area tbody td.type-int {
+  text-align: right;
+}
+
+#ranking-area tbody td.type-float {
+  text-align: right;
+}
+
+#ranking-area tbody td.type-percentage {
+  text-align: right;
+}
+
+#ranking-area tbody td.type-string {
+  text-align: left;
+}
+
+#ranking-area tbody td.type-rank {
+  text-align: right;
+  font-weight: bold;
+}
+
+#ranking-area tbody td.type-name {
+  cursor: pointer;
+}
+
 /* footer */
 
 footer {
@@ -138,10 +200,10 @@ footer {
 
 @media (min-width: 1366px) {
   
-  #content {
+  /*#content {
     width: 1232px;
     
-  }
+  }*/
   
 }
 
