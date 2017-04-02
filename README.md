@@ -9,7 +9,7 @@ Steam Achievement Manager は、音楽ゲーム osu! のランキングの変動
 
 ## Licence
 
-MIT License
+[MIT License](/LICENSE)
 
 ## Author
 

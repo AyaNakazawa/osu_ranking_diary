@@ -7,47 +7,43 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  
   color: #333;
   background: #a9a9ff;
-  
   font-size: 16px;
 	font-family: Verdana, Arial, sans-serif;
 }
 
-a {
-}
 a:hover {
   text-decoration: none;
-}
-a:focus {
 }
 
 /* main */
 
 .main {
-  background: #f0ecfa;
   width: 90%;
   margin: 20px auto;
   padding: 20px 0;
-  
+  background: #f0ecfa;
   border-radius: 8px;
 }
 
 /* header */
 
 header {
-text-align: center;
+  height: 64px;
+  line-height: 64px;
+  text-align: center;
 }
 
 /* navbar */
 
 .navbar {
+  text-align: center;
+  margin: 0;
   background: none;
   border-radius: 0;
   border: 0;
   border-bottom: 1px solid #ccc;
-  text-align: center;
 }
 
 .nav {
@@ -65,7 +61,9 @@ text-align: center;
 /* footer */
 
 footer {
-text-align: center;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
 }
 
 /* other */
@@ -85,6 +83,11 @@ text-align: center;
 /* wide */
 
 @media (min-width: 1366px) {
+  
+  .main {
+    width: 1232px;
+    
+  }
   
 }
 
