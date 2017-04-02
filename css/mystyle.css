@@ -83,6 +83,16 @@ header {
   margin-top: 20px;
 }
 
+/* colgroup */
+
+#ranking-area colgroup {
+  border-right: 1px solid #ddd;
+}
+
+#ranking-area colgroup.col-last {
+  border-right: 0;
+}
+
 /* footer */
 
 footer {
