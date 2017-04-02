@@ -77,6 +77,12 @@ header {
   margin: 0;
 }
 
+/* ranking-area */
+
+#ranking-area {
+  margin-top: 20px;
+}
+
 /* footer */
 
 footer {
