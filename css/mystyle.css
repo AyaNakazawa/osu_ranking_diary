@@ -91,6 +91,24 @@ footer {
 /* medium */
 
 @media (min-width: 585px) {
+  
+  #search-date-area {
+    width: 400px;
+    height: 34px;
+    margin: 10px auto;
+  }
+  
+  #search-date-area > input {
+    display: inline-block;
+    float: left;
+    width: 45%;
+  }
+
+  #search-date-area > p {
+    display: inline-block;
+    float: left;
+    width: 10%;
+  }
 
 }
 
