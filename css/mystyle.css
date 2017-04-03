@@ -107,9 +107,9 @@ header {
   border-right: 0;
 }
 
-/*.change-value, .difference-of-above {
+#ranking-area .display-none {
   display: none;
-}*/
+}
 
 /* ranking-area thead */
 
