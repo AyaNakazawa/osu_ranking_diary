@@ -17,6 +17,10 @@ a:hover {
   text-decoration: none;
 }
 
+.display-none {
+  display: none;
+}
+
 /* content */
 
 #content {
@@ -107,10 +111,6 @@ header {
   border-right: 0;
 }
 
-#ranking-area .display-none {
-  display: none;
-}
-
 /* ranking-area thead */
 
 #ranking-area thead th {
@@ -192,8 +192,16 @@ footer {
     width: 460px;
     height: 36px;
     margin: 0 auto 10px;
-    padding: 5px 0;
+    padding: 0;
     border: 0;
+  }
+  
+  .setting-item:last-child {
+    margin-bottom: 20px;
+  }
+  
+  #setting-view-column-area {
+    margin-bottom: 0;
   }
   
   .setting-item > input {
