@@ -48,7 +48,7 @@ header {
   background: none;
   border-radius: 0;
   border: 0;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #bbb;
 }
 
 .nav {
@@ -69,8 +69,8 @@ header {
 .setting-item {
   text-align: center;
   margin: 0 10px 10px;
-  padding: 0 10px 10px;
-  border: 1px solid #ccc;
+  padding: 10px;
+  border: 1px solid #bbb;
   border-radius: 3px;
   box-sizing: border-box;
 }
@@ -181,7 +181,7 @@ footer {
   .setting-item {
     width: 460px;
     height: 36px;
-    margin: 10px auto;
+    margin: 0 auto 10px;
     border: 0;
   }
   
