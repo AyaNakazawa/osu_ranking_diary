@@ -64,17 +64,25 @@ header {
   overflow: hidden;
 }
 
-/* setting-date-area */
+/* setting-item */
 
-#setting-date-area {
+.setting-item {
   text-align: center;
-  margin: 10px;
+  margin: 0 10px 10px;
+  padding: 0 10px 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
 }
 
-#setting-date-area > p {
+.setting-item > p {
   height: 32px;
   line-height: 32px;
   margin: 0;
+}
+
+.setting-item > input {
+  text-align: center;
 }
 
 /* ranking-area */
@@ -170,24 +178,37 @@ footer {
 
 @media (min-width: 585px) {
   
-  #setting-date-area {
-    width: 400px;
-    height: 34px;
+  .setting-item {
+    width: 460px;
+    height: 36px;
     margin: 10px auto;
+    border: 0;
   }
   
-  #setting-date-area > input {
+  .setting-item > input {
     display: inline-block;
     float: left;
-    width: 45%;
+    width: 38%;
   }
 
-  #setting-date-area > p {
+  .setting-item > p {
+    line-height: 36px;
     display: inline-block;
     float: left;
-    width: 10%;
   }
-
+  
+  .setting-item > .setting-title:after {
+    content: ':';
+  }
+  
+  .setting-item > .setting-title {
+    width: 15%;
+  }
+  
+  .setting-item > .setting-to {
+    width: 9%;
+  }
+  
 }
 
 /* large */
