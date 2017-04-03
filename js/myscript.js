@@ -12,10 +12,18 @@ $(function() {
   $(document).on("change", "#setting-view-column-area input", function() {
     console.log("Change Vire difference column: " + $(this).prop("checked"));
     
-    var checkbox = this;
+    var checkViewColumn = $(this).prop("checked");
+    
+    if (checkViewColumn) {
+      $("#setting-date-area").removeClass("display-none");
+      
+    } else {
+      $("#setting-date-area").addClass("display-none");
+      
+    }
     
     $(".change-value, .difference-of-above").each(function(i, element) {
-      if ($(checkbox).prop("checked")) {
+      if (checkViewColumn) {
         $(element).removeClass("display-none");
         
       } else {
