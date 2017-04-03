@@ -64,6 +64,12 @@ header {
   overflow: hidden;
 }
 
+/* setting-area */
+
+#setting-area {
+  
+}
+
 /* setting-item */
 
 .setting-item {
@@ -178,6 +184,10 @@ footer {
 
 @media (min-width: 585px) {
   
+  #setting-area {
+    border-bottom: 1px solid #bbb;
+  }
+
   .setting-item {
     width: 460px;
     height: 36px;

@@ -38,22 +38,24 @@
         </div>
       </nav>
       <div class="container-fluid" id="main">
-        <div class="setting-item" id="setting-date-area">
-          <p class="setting-title">Date</p>
-          <input type="date" name="init-date" class="form-control setting-date">
-          <p class="setting-to">to</p>
-          <input type="date" name="exit-date" class="form-control setting-date">
-        </div>
-        <div class="setting-item" id="setting-rank-area">
-          <p class="setting-title">Rank</p>
-          <input type="number" name="init-rank" class="form-control setting-number" min="1" max="1000" value="1">
-          <p class="setting-to">to</p>
-          <input type="number" name="exit-rank" class="form-control setting-number" min="1" max="1000" value="100">
-        </div>
-        <div class="setting-item checkbox" id="setting-view-column-area">
-          <label>
-            <input type="checkbox" name="view-column" class="setting-check" value="checkboxA"> View Difference Value
-          </label>
+        <div id="setting-area">
+          <div class="setting-item" id="setting-date-area">
+            <p class="setting-title">Date</p>
+            <input type="date" name="init-date" class="form-control setting-date">
+            <p class="setting-to">to</p>
+            <input type="date" name="exit-date" class="form-control setting-date">
+          </div>
+          <div class="setting-item" id="setting-rank-area">
+            <p class="setting-title">Rank</p>
+            <input type="number" name="init-rank" class="form-control setting-number" min="1" max="1000" value="1">
+            <p class="setting-to">to</p>
+            <input type="number" name="exit-rank" class="form-control setting-number" min="1" max="1000" value="100">
+          </div>
+          <div class="setting-item checkbox" id="setting-view-column-area">
+            <label>
+              <input type="checkbox" name="view-column" class="setting-check" value="checkboxA"> View difference column
+            </label>
+          </div>
         </div>
         <!-- 順位と表示データの指定 -->
         <div id="ranking-area" class="table-responsive">
