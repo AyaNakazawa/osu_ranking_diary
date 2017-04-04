@@ -15,10 +15,10 @@ $(function() {
     var checkViewColumn = $(this).prop("checked");
     
     if (checkViewColumn) {
-      $("#setting-date-area").removeClass("display-none");
+      $("#setting-date-area > #difference-date").removeClass("display-none");
       
     } else {
-      $("#setting-date-area").addClass("display-none");
+      $("#setting-date-area > #difference-date").addClass("display-none");
       
     }
     

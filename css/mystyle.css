@@ -85,13 +85,13 @@ header {
   box-sizing: border-box;
 }
 
-.setting-item > p {
+.setting-item p {
   height: 32px;
   line-height: 32px;
   margin: 0;
 }
 
-.setting-item > input {
+.setting-item input:not([type="checkbox"]) {
   text-align: center;
 }
 
@@ -204,27 +204,27 @@ footer {
     margin-bottom: 0;
   }
   
-  .setting-item > input {
+  .setting-item input:not([type="checkbox"]) {
     display: inline-block;
     float: left;
     width: 38%;
   }
 
-  .setting-item > p {
+  .setting-item p {
     line-height: 36px;
     display: inline-block;
     float: left;
   }
   
-  .setting-item > .setting-title:after {
+  .setting-item .setting-title:after {
     content: ':';
   }
   
-  .setting-item > .setting-title {
+  .setting-item .setting-title {
     width: 15%;
   }
   
-  .setting-item > .setting-to {
+  .setting-item .setting-to {
     width: 9%;
   }
   
