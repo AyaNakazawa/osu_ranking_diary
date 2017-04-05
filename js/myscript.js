@@ -45,7 +45,7 @@ $(function() {
 // Dateオブジェクトからゼロ埋めした日付文字列を生成
 // _date: new Date()
 //  Dateオブジェクト
-// _format: 0
+// _format: '%Y/%m/%d %H:%M:%S'
 //  %Y: 年4桁
 //  %y: 年2桁
 //  %m: 月

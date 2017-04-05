@@ -3,7 +3,7 @@
 
 ## Description
 
-Steam Achievement Manager は、音楽ゲーム osu! のランキングの変動を、ブラウザで閲覧できるものです。
+osu! Ranking Diary は、音楽ゲーム osu! のランキングの変動を、ブラウザで閲覧できるものです。
 
 ## Usage
 
