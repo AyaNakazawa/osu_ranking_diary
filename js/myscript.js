@@ -1,5 +1,6 @@
 
 // グローバル変数
+var dateList = new Array();
 
 
 // 定数
@@ -45,6 +46,9 @@ $(function() {
 // ----------------------------------------------------------------
 // osu! Ranking Diary 初期化
 function initializeORD(){
+  
+  searchDateList();
+  
   $(".init-date").val(getDateString(new Date(), "%Y-%m-%d"));
   $(".exit-date").val(getDateString(new Date(), "%Y-%m-%d"));
   $(".init-rank").val(1);
@@ -54,6 +58,28 @@ function initializeORD(){
 
 // ----------------------------------------------------------------
 // 日付一覧を取得
+function searchDateList(){
+  $.ajax({
+    url: "ruby/getRankListDates.rb",
+    success: function(data, dataType) {
+      var i = 0;
+      
+      // グローバル変数に改行区切りで分割して、最後の空白削除
+      dateList = data.split('\n');
+      dateList.pop();
+      
+      // 日付リスト回す
+      $(dateList).each(function(i, date) {
+        console.log("dateList: " + i + "/" + dateList.length + ": " + date);
+        
+      });
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+      console.log("Error: ajax: " + textStatus);
+    }
+  });
+
+}
 
 // ----------------------------------------------------------------
 // Dateオブジェクトからゼロ埋めした日付文字列を生成
