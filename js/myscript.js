@@ -1,11 +1,15 @@
 
 // グローバル変数
 var initializeStatus = 0;
-var dateList = new Array();
 var loadingStatus = true;
-var initDate = '2017/04/01';
-var exitDate2 = '2017/04/01';
-var exitDate = '2017/04/01';
+var diffStatus = true;
+
+var dateList = new Array();
+
+var initDate;
+var initDate2;
+var exitDate2;
+var exitDate;
 
 
 // 定数
@@ -26,13 +30,20 @@ $(function() {
   $(document).on("change", "#view-column", function() {
     console.log("Change Vire difference column: " + $(this).prop("checked"));
     
+    diffStatus = toggleBoolean(diffStatus);
+    
     var checkViewColumn = $(this).prop("checked");
     
     if (checkViewColumn) {
+      // 変動を表示
       $("#setting-date-area > #difference-date").removeClass("display-none");
+      $("#exit-date").attr("min", initDate2);
+      fixRankDate(0);
       
     } else {
+      // 変動を非表示
       $("#setting-date-area > #difference-date").addClass("display-none");
+      $("#exit-date").attr("min", initDate);
       
     }
     
@@ -45,6 +56,21 @@ $(function() {
         
       }
     });
+    
+  });
+  
+  // ----------------------------------------------------------------
+  // init-date を変更
+  $(document).on("change", "#init-date", function() {
+    fixRankDate(0);
+    
+  });
+  
+  // ----------------------------------------------------------------
+  // init-date を変更
+  $(document).on("change", "#exit-date", function() {
+    fixRankDate(1);
+    
   });
   
 });
@@ -71,7 +97,7 @@ function initializeORD(){
       
       // tooltip をつける
       
-      $("#view-column-label").tooltip({placement: "bottom"});
+      $("#view-column-label").tooltip({placement: "left"});
       
       $("#init-date").attr("title", "" + initDate + " ～ " + exitDate2);
       $("#exit-date").attr("title", "" + initDate + " ～ " + exitDate);
@@ -111,23 +137,72 @@ function searchDateList(){
         
         if (i === 0) {
           initDate = date;
-          $("#init-date").attr("min", initDate);
-          $("#exit-date").attr("min", initDate);
-        } else if (i === dateList.length - 2) {
+          initDate2 = initDate2 || date;
+        }
+        if (i === 1) {
+          initDate2 = date;
+        }
+        if (i === dateList.length - 2) {
           exitDate2 = date;
-          $("#init-date").attr("max", exitDate2);
-        } else if (i === dateList.length - 1) {
+        }
+        if (i === dateList.length - 1) {
           exitDate = date;
-          $("#exit-date").attr("max", exitDate);
+          exitDate2 = exitDate2 || date;
         }
         
       });
+      
+      $("#init-date").attr("min", initDate);
+      $("#exit-date").attr("min", initDate2);
+      $("#init-date").attr("max", exitDate2);
+      $("#exit-date").attr("max", exitDate);
+      
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) {
       console.log("Error: ajax: " + textStatus);
     }
   });
 
+}
+
+// ----------------------------------------------------------------
+// 日付を変更したとき、もう一方の日付を修正
+function fixRankDate(_id) {
+  // 日時が許容値を超えていたら修正
+  var initDateValLocal = $("#init-date").val();
+  var initDateMaxLocal = $("#init-date").attr("max");
+  var initDateMinLocal = $("#init-date").attr("min");
+  var exitDateValLocal = $("#exit-date").val();
+  var exitDateMaxLocal = $("#exit-date").attr("max");
+  var exitDateMinLocal = $("#exit-date").attr("min");
+  
+  if (initDateValLocal > initDateMaxLocal) {
+    $("#init-date").val($("#init-date").attr("max"));
+  }
+  if (initDateValLocal < initDateMinLocal) {
+    $("#init-date").val($("#init-date").attr("min"));
+  }
+  
+  if (exitDateValLocal > exitDateMaxLocal) {
+    $("#exit-date").val($("#exit-date").attr("max"));
+  }
+  if (exitDateValLocal < exitDateMinLocal) {
+    $("#exit-date").val($("#exit-date").attr("min"));
+  }
+
+  var initDateLocal = new Date($("#init-date").val());
+  var exitDateLocal = new Date($("#exit-date").val());
+  
+  if (initDateLocal >= exitDateLocal) {
+    if (_id === 0) {
+      initDateLocal.setDate(initDateLocal.getDate() + 1);
+      $("#exit-date").val(getDateString(initDateLocal, "%Y-%m-%d"));
+    } else if (_id === 1) {
+      exitDateLocal.setDate(exitDateLocal.getDate() - 1);
+      $("#init-date").val(getDateString(exitDateLocal, "%Y-%m-%d"));
+    }
+  }
+  
 }
 
 // ----------------------------------------------------------------
