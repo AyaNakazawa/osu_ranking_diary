@@ -69,6 +69,19 @@ function initializeORD(){
       $("#init-rank").val(1);
       $("#exit-rank").val(100);
       
+      // tooltip をつける
+      
+      $("#view-column-label").tooltip({placement: "bottom"});
+      
+      $("#init-date").attr("title", "" + initDate + " ～ " + exitDate2);
+      $("#exit-date").attr("title", "" + initDate + " ～ " + exitDate);
+      
+      $("#init-date").tooltip();
+      $("#exit-date").tooltip();
+      
+      $("#init-rank").tooltip();
+      $("#exit-rank").tooltip();
+      
       toggleLoading();
       
       break;
