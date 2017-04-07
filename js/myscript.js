@@ -8,6 +8,10 @@
 $(function() {
   
   // ----------------------------------------------------------------
+  // 初期化
+  initializeORD();
+  
+  // ----------------------------------------------------------------
   // View difference columnを変更
   $(document).on("change", "#setting-view-column-area input", function() {
     console.log("Change Vire difference column: " + $(this).prop("checked"));
@@ -37,6 +41,16 @@ $(function() {
 
 // ----------------------------------------------------------------
 // Functions
+
+// ----------------------------------------------------------------
+// osu! Ranking Diary 初期化
+function initializeORD(){
+  $(".init-date").val(getDateString(new Date(), "%Y-%m-%d"));
+  $(".exit-date").val(getDateString(new Date(), "%Y-%m-%d"));
+  $(".init-rank").val(1);
+  $(".exit-rank").val(100);
+  
+}
 
 // ----------------------------------------------------------------
 // 日付一覧を取得
