@@ -148,7 +148,7 @@ function searchDateList(){
       $(dateList).each(function(i, date) {
         dateList[i] = date.trim();
         date = dateList[i];
-        console.log("dateList: " + i + "/" + dateList.length + ": " + date);
+        // console.log("dateList: " + i + "/" + dateList.length + ": " + date);
         
         if (i === 0) {
           initDate = date;
