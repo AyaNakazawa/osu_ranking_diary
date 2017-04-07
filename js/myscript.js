@@ -3,6 +3,9 @@
 var initializeStatus = 0;
 var dateList = new Array();
 var loadingStatus = true;
+var initDate = '2017/04/01';
+var exitDate2 = '2017/04/01';
+var exitDate = '2017/04/01';
 
 
 // 定数
@@ -60,9 +63,9 @@ function initializeORD(){
       
       break;
     case 1:
-    
-      $("#init-date").val(getDateString(new Date(), "%Y-%m-%d"));
-      $("#exit-date").val(getDateString(new Date(), "%Y-%m-%d"));
+      
+      $("#init-date").val(initDate);
+      $("#exit-date").val(exitDate);
       $("#init-rank").val(1);
       $("#exit-rank").val(100);
       
@@ -89,7 +92,21 @@ function searchDateList(){
       
       // 日付リスト回す
       $(dateList).each(function(i, date) {
+        dateList[i] = date.trim();
+        date = dateList[i];
         console.log("dateList: " + i + "/" + dateList.length + ": " + date);
+        
+        if (i === 0) {
+          initDate = date;
+          $("#init-date").attr("min", initDate);
+          $("#exit-date").attr("min", initDate);
+        } else if (i === dateList.length - 2) {
+          exitDate2 = date;
+          $("#init-date").attr("max", exitDate2);
+        } else if (i === dateList.length - 1) {
+          exitDate = date;
+          $("#exit-date").attr("max", exitDate);
+        }
         
       });
     },
