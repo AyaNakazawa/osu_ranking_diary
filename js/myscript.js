@@ -26,6 +26,13 @@ $(function() {
   });
   
   // ----------------------------------------------------------------
+  // トップまでのスクロール
+  $(document).on('click', '#pagetop', function() {
+    // console.log("Scroll to Top");
+    $('body,html').animate({scrollTop:0}, 500);
+  });
+  
+  // ----------------------------------------------------------------
   // View difference columnを変更
   $(document).on("change", "#view-column", function() {
     console.log("Change Vire difference column: " + $(this).prop("checked"));
