@@ -1,5 +1,6 @@
 
 // グローバル変数
+var initializeStatus = 0;
 var dateList = new Array();
 var loadingStatus = true;
 
@@ -12,6 +13,10 @@ $(function() {
   // ----------------------------------------------------------------
   // 初期化
   initializeORD();
+  
+  $(document).ajaxSuccess(function() {
+    initializeORD();
+  });
   
   // ----------------------------------------------------------------
   // View difference columnを変更
@@ -48,14 +53,25 @@ $(function() {
 // osu! Ranking Diary 初期化
 function initializeORD(){
   
-  searchDateList();
+  switch (initializeStatus) {
+    case 0:
+      // ajax
+      searchDateList();
+      
+      break;
+    case 1:
+    
+      $("#init-date").val(getDateString(new Date(), "%Y-%m-%d"));
+      $("#exit-date").val(getDateString(new Date(), "%Y-%m-%d"));
+      $("#init-rank").val(1);
+      $("#exit-rank").val(100);
+      
+      toggleLoading();
+      
+      break;
+  }
   
-  $("#init-date").val(getDateString(new Date(), "%Y-%m-%d"));
-  $("#exit-date").val(getDateString(new Date(), "%Y-%m-%d"));
-  $("#init-rank").val(1);
-  $("#exit-rank").val(100);
-  
-  toggleLoading();
+  initializeStatus++;
   
 }
 

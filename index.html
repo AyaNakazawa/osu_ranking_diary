@@ -43,7 +43,7 @@
       <div class="container-fluid display-none" id="main">
         <div id="setting-area">
           <div class="setting-item checkbox" id="setting-view-column-area">
-            <label>
+            <label id="view-column-label" title="変動を見る">
               <input type="checkbox" class="setting-check" id="view-column" value="checkboxA" checked> View difference column
             </label>
           </div>
@@ -57,9 +57,9 @@
           </div>
           <div class="setting-item" id="setting-rank-area">
             <p class="setting-title">Rank</p>
-            <input type="number" class="form-control setting-number" id="init-rank" min="1" max="1000" value="1">
+            <input type="number" class="form-control setting-number" id="init-rank" min="1" max="1000" title="1～1000位" value="1">
             <p class="setting-to">to</p>
-            <input type="number" class="form-control setting-number" id="exit-rank" min="1" max="1000" value="100">
+            <input type="number" class="form-control setting-number" id="exit-rank" min="1" max="1000" title="1～1000位" value="100">
           </div>
         </div>
         <!-- 順位と表示データの指定 -->
