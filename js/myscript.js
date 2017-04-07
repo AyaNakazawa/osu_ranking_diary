@@ -1,6 +1,7 @@
 
 // グローバル変数
 var dateList = new Array();
+var loadingStatus = true;
 
 
 // 定数
@@ -54,6 +55,8 @@ function initializeORD(){
   $(".init-rank").val(1);
   $(".exit-rank").val(100);
   
+  toggleLoading();
+  
 }
 
 // ----------------------------------------------------------------
@@ -79,6 +82,31 @@ function searchDateList(){
     }
   });
 
+}
+
+// ----------------------------------------------------------------
+// Loading表記の切り替え
+// _status: 
+//  true: loading
+//  false: main
+function toggleLoading(_status){
+  if (_status === null) {
+    loadingStatus = _status;
+    
+  } else {
+    loadingStatus = toggleBoolean(loadingStatus);
+    
+  }
+  
+  if (loadingStatus) {
+    $("#loading").removeClass("display-none");
+    $("#main").addClass("display-none");
+    
+  } else {
+    $("#main").removeClass("display-none");
+    $("#loading").addClass("display-none");
+    
+  }
 }
 
 // ----------------------------------------------------------------
