@@ -33,6 +33,15 @@ $(function() {
   });
   
   // ----------------------------------------------------------------
+  // タイトル
+  $(document).on('click', '#title', function() {
+    // console.log("Click Title");
+    
+    location.reload();
+    
+  });
+  
+  // ----------------------------------------------------------------
   // View difference columnを変更
   $(document).on("change", "#view-column", function() {
     console.log("Change Vire difference column: " + $(this).prop("checked"));
