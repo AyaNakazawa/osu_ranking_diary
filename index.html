@@ -44,22 +44,22 @@
         <div id="setting-area">
           <div class="setting-item checkbox" id="setting-view-column-area">
             <label>
-              <input type="checkbox" class="setting-check view-column" value="checkboxA" checked> View difference column
+              <input type="checkbox" class="setting-check" id="view-column" value="checkboxA" checked> View difference column
             </label>
           </div>
           <div class="setting-item" id="setting-date-area">
             <p class="setting-title">Date</p>
             <div id="difference-date">
-              <input type="date" class="form-control setting-date init-date">
+              <input type="date" class="form-control setting-date" id="init-date">
               <p class="setting-to">to</p>
             </div>
-            <input type="date" class="form-control setting-date exit-date">
+            <input type="date" class="form-control setting-date" id="exit-date">
           </div>
           <div class="setting-item" id="setting-rank-area">
             <p class="setting-title">Rank</p>
-            <input type="number" class="form-control setting-number init-rank" min="1" max="1000" value="1">
+            <input type="number" class="form-control setting-number" id="init-rank" min="1" max="1000" value="1">
             <p class="setting-to">to</p>
-            <input type="number" class="form-control setting-number exit-rank" min="1" max="1000" value="100">
+            <input type="number" class="form-control setting-number" id="exit-rank" min="1" max="1000" value="100">
           </div>
         </div>
         <!-- 順位と表示データの指定 -->

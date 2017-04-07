@@ -15,7 +15,7 @@ $(function() {
   
   // ----------------------------------------------------------------
   // View difference columnを変更
-  $(document).on("change", "#setting-view-column-area input", function() {
+  $(document).on("change", "#view-column", function() {
     console.log("Change Vire difference column: " + $(this).prop("checked"));
     
     var checkViewColumn = $(this).prop("checked");
@@ -50,10 +50,10 @@ function initializeORD(){
   
   searchDateList();
   
-  $(".init-date").val(getDateString(new Date(), "%Y-%m-%d"));
-  $(".exit-date").val(getDateString(new Date(), "%Y-%m-%d"));
-  $(".init-rank").val(1);
-  $(".exit-rank").val(100);
+  $("#init-date").val(getDateString(new Date(), "%Y-%m-%d"));
+  $("#exit-date").val(getDateString(new Date(), "%Y-%m-%d"));
+  $("#init-rank").val(1);
+  $("#exit-rank").val(100);
   
   toggleLoading();
   
