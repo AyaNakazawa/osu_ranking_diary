@@ -1,5 +1,7 @@
 
 // グローバル変数
+var localStorageFlg = true;
+
 var initializeStatus = 0;
 var loadingStatus = true;
 var diffStatus = true;
@@ -26,6 +28,19 @@ $(function() {
   });
   
   // ----------------------------------------------------------------
+  // ローカルストレージ対応判定
+  if(!localStorage) {
+    console.log('"Local Storage" is unsupported. Data can not be saved.');
+    console.log('"ローカルストレージ"機能に対応していません。データを保存することができません。');
+    
+    localStorageFlg = false;
+    
+    $("#action-save").remove();
+    $("#action-load").remove();
+    $("#action-reset").remove();
+  }
+  
+  // ----------------------------------------------------------------
   // トップまでのスクロール
   $(document).on('click', '#pagetop', function() {
     // console.log("Scroll to Top");
@@ -39,6 +54,14 @@ $(function() {
     
     location.reload();
     
+  });
+  
+  // ----------------------------------------------------------------
+  // ローカルストレージを初期化
+  $(document).on('click', '#action-reset', function() {
+    // console.log("Click Reset action");
+    
+    showConfirmDialog("ローカルストレージの初期化", "<p>ローカルストレージに保存されている内容を全て初期化します。<br>よろしいですか？</p>", initializeLocalStorage)
   });
   
   // ----------------------------------------------------------------
@@ -344,6 +367,25 @@ function getDateString(_date, _format){
     dateString = dateString.replace('%S', ("0" + _date.getSeconds()).slice(-2));
   }
   return dateString;
+}
+
+// ----------------------------------------------------------------
+// ローカルストレージの初期化
+function initializeLocalStorage(_initializeFlg) {
+  
+  // var initializeFlg = _initializeFlg || true;
+  // で初期値与えようとすると false がきたとき true を持ってくるから使えない
+
+  var initializeFlg = _initializeFlg;
+  if (initializeFlg === null) {
+    initializeFlg = true;
+  }
+  
+  if (initializeFlg) {
+    console.log("LocalStorage Reset");
+    localStorage.clear();
+    
+  }
 }
 
 // ----------------------------------------------------------------
