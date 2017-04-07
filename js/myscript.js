@@ -67,9 +67,24 @@ $(function() {
   });
   
   // ----------------------------------------------------------------
-  // init-date を変更
+  // exit-date を変更
   $(document).on("change", "#exit-date", function() {
     fixRankDate(1);
+    
+  });
+  
+  
+  // ----------------------------------------------------------------
+  // init-rank を変更
+  $(document).on("change", "#init-rank", function() {
+    fixRank(0);
+    
+  });
+  
+  // ----------------------------------------------------------------
+  // exit-rank を変更
+  $(document).on("change", "#exit-rank", function() {
+    fixRank(1);
     
   });
   
@@ -168,7 +183,7 @@ function searchDateList(){
 // ----------------------------------------------------------------
 // 日付を変更したとき、もう一方の日付を修正
 function fixRankDate(_id) {
-  // 日時が許容値を超えていたら修正
+  // 日付が許容値を超えていたら修正
   var initDateValLocal = $("#init-date").val();
   var initDateMaxLocal = $("#init-date").attr("max");
   var initDateMinLocal = $("#init-date").attr("min");
@@ -189,17 +204,62 @@ function fixRankDate(_id) {
   if (exitDateValLocal < exitDateMinLocal) {
     $("#exit-date").val($("#exit-date").attr("min"));
   }
-
-  var initDateLocal = new Date($("#init-date").val());
-  var exitDateLocal = new Date($("#exit-date").val());
   
-  if (initDateLocal >= exitDateLocal) {
+  // もう一方の日付を超えたとき、もう一方を修正
+  if (diffStatus) {
+    var initDateLocal = new Date($("#init-date").val());
+    var exitDateLocal = new Date($("#exit-date").val());
+    
+    if (initDateLocal >= exitDateLocal) {
+      if (_id === 0) {
+        initDateLocal.setDate(initDateLocal.getDate() + 1);
+        $("#exit-date").val(getDateString(initDateLocal, "%Y-%m-%d"));
+      } else if (_id === 1) {
+        exitDateLocal.setDate(exitDateLocal.getDate() - 1);
+        $("#init-date").val(getDateString(exitDateLocal, "%Y-%m-%d"));
+      }
+    }
+  }
+  
+}
+
+// ----------------------------------------------------------------
+// ランクを変更したとき、もう一方のランクを修正
+function fixRank(_id) {
+  // ランクが許容値を超えていたら修正
+  var initRankValLocal = 1 * $("#init-rank").val();
+  var initRankMaxLocal = 1 * $("#init-rank").attr("max");
+  var initRankMinLocal = 1 * $("#init-rank").attr("min");
+  var exitRankValLocal = 1 * $("#exit-rank").val();
+  var exitRankMaxLocal = 1 * $("#exit-rank").attr("max");
+  var exitRankMinLocal = 1 * $("#exit-rank").attr("min");
+  
+  if (initRankValLocal > initRankMaxLocal) {
+    $("#init-rank").val($("#init-rank").attr("max"));
+    console.log("teetetet");
+  }
+  if (initRankValLocal < initRankMinLocal) {
+    $("#init-rank").val($("#init-rank").attr("min"));
+    console.log("teetetet");
+  }
+  
+  if (exitRankValLocal > exitRankMaxLocal) {
+    $("#exit-rank").val($("#exit-rank").attr("max"));
+    console.log("teetetet");
+  }
+  if (exitRankValLocal < exitRankMinLocal) {
+    $("#exit-rank").val($("#exit-rank").attr("min"));
+    console.log("teetetet");
+  }
+  
+  // もう一方のランクを超えたとき、もう一方を修正
+  initRankValLocal = 1 * $("#init-rank").val();
+  exitRankValLocal = 1 * $("#exit-rank").val();
+  if (initRankValLocal >= exitRankValLocal) {
     if (_id === 0) {
-      initDateLocal.setDate(initDateLocal.getDate() + 1);
-      $("#exit-date").val(getDateString(initDateLocal, "%Y-%m-%d"));
+      $("#exit-rank").val((initRankValLocal + 1).toString());
     } else if (_id === 1) {
-      exitDateLocal.setDate(exitDateLocal.getDate() - 1);
-      $("#init-date").val(getDateString(exitDateLocal, "%Y-%m-%d"));
+      $("#init-rank").val((exitRankValLocal - 1).toString());
     }
   }
   
