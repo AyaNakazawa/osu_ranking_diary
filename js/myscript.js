@@ -338,6 +338,45 @@ function getDateString(_date, _format){
 }
 
 // ----------------------------------------------------------------
+// 通常モーダルウィンドウ
+function showDialog(_dialogTitle, _dialogContent) {
+  var dialogTitle = _dialogTitle || "タイトル";
+  var dialogContent = _dialogContent || "内容";
+  
+  // モーダルウィンドウを表示
+  $("#modalDialog").html(dialogContent);
+  $("#modalDialog").dialog({
+    modal: true,
+    title: dialogTitle
+  });
+}
+
+// ----------------------------------------------------------------
+// 確認モーダルウィンドウ
+function showConfirmDialog(_dialogTitle, _dialogContent, _callbackFunction) {
+  var dialogTitle = _dialogTitle || "確認";
+  var dialogContent = _dialogContent || "内容";
+  var callbackFunction = _callbackFunction || function(){};
+  
+  // モーダルウィンドウを表示
+  $("#modalConfirmDialog").html(dialogContent);
+  $("#modalConfirmDialog").dialog({
+    modal: true,
+    title: dialogTitle,
+    buttons: {
+      "OK": function() {
+        callbackFunction(true);
+        $(this).dialog("close");
+      },
+      "キャンセル": function() {
+        callbackFunction(false);
+        $(this).dialog("close");
+      }
+    }
+  });
+}
+
+// ----------------------------------------------------------------
 // true false をスイッチ
 function toggleBoolean(_bool) {
   return !_bool;
