@@ -8,6 +8,10 @@ require 'json'
 inFileName = ARGV[0]
 outFileName = inFileName[0, inFileName.length - 4] + "json"
 
+outDate = inFileName[13, 4]
+outDate += "-" + inFileName[18, 2]
+outDate += "-" + inFileName[21, 2]
+
 File.open(outFileName, 'w') do |outFile|
   # HTMLを読み込み
   doc = Nokogiri::HTML(open(inFileName))
@@ -15,6 +19,8 @@ File.open(outFileName, 'w') do |outFile|
 
   tri = 1
   players = {}
+  
+  players[:date] = outDate
   
   # trを見る
   table.each do |tr|

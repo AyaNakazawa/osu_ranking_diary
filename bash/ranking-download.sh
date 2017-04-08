@@ -88,7 +88,6 @@ for ((i=1; i <= $rankingFiles; i++)); do
   
 done
 
-
 # Clear env
 
 echo Clear ORD_env

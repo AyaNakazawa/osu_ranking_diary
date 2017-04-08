@@ -353,6 +353,10 @@ function getRanking(_date, _initRank, _exitRank) {
         // console.log(_json);
         // console.log("_textStatus: " + _textStatus);
         
+        $(Object.keys(_json)).each(function(i, playerKey) {
+          console.log(_json[playerKey]);
+        });
+        
         loadRankingStatus--;
         
     });
