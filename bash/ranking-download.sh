@@ -21,28 +21,73 @@ echo Make directory
   mkdir -p ${ORD_MODE3_DIR}
 
 # Download osu ranking
+rankingFiles=20
 
 # osu! Standard
 echo Downloading osu! Standard ranking...
-curl -o "${ORD_MODE0_DIR}/ranking-#1.html" "${ORD_OSU_RANKING_URL}/?m=0&s=3&o=1&f=&page=[1-20]"
+
+for ((i=1; i <= $rankingFiles; i++)); do
+  file=${ORD_MODE0_DIR}/ranking-${i}.html
+  if [ ! -e $file ]; then
+    curl -o "${ORD_MODE0_DIR}/ranking-${i}.html" "${ORD_OSU_RANKING_URL}/?m=0&s=3&o=1&f=&page=${i}"
+  fi
+  
+  ruby parseRanking.rb $file
+  rm $file
+  
+done
+
 echo Waiting 20s...
 sleep 20s
 
 # osu!Taiko
 echo Downloading osu!Taiko ranking...
-curl -o "${ORD_MODE1_DIR}/ranking-#1.html" "${ORD_OSU_RANKING_URL}/?m=1&s=3&o=1&f=&page=[1-20]"
+
+for ((i=1; i <= $rankingFiles; i++)); do
+  file=${ORD_MODE1_DIR}/ranking-${i}.html
+  if [ ! -e $file ]; then
+    curl -o "${ORD_MODE1_DIR}/ranking-${i}.html" "${ORD_OSU_RANKING_URL}/?m=1&s=3&o=1&f=&page=${i}"
+  fi
+  
+  ruby parseRanking.rb $file
+  rm $file
+  
+done
+
 echo Waiting 20s...
 sleep 20s
 
 # Catch The Beat
 echo Downloading Catch The Beat ranking...
-curl -o "${ORD_MODE2_DIR}/ranking-#1.html" "${ORD_OSU_RANKING_URL}/?m=2&s=3&o=1&f=&page=[1-20]"
+
+for ((i=1; i <= $rankingFiles; i++)); do
+  file=${ORD_MODE2_DIR}/ranking-${i}.html
+  if [ ! -e $file ]; then
+    curl -o "${ORD_MODE2_DIR}/ranking-${i}.html" "${ORD_OSU_RANKING_URL}/?m=2&s=3&o=1&f=&page=${i}"
+  fi
+  
+  ruby parseRanking.rb $file
+  rm $file
+  
+done
+
 echo Waiting 20s...
 sleep 20s
 
 # osu!mania
 echo Downloading osu!mania ranking...
-curl -o "${ORD_MODE3_DIR}/ranking-#1.html" "${ORD_OSU_RANKING_URL}/?m=3&s=3&o=1&f=&page=[1-20]"
+
+for ((i=1; i <= $rankingFiles; i++)); do
+  file=${ORD_MODE3_DIR}/ranking-${i}.html
+  if [ ! -e $file ]; then
+    curl -o "${ORD_MODE3_DIR}/ranking-${i}.html" "${ORD_OSU_RANKING_URL}/?m=3&s=3&o=1&f=&page=${i}"
+  fi
+  
+  ruby parseRanking.rb $file
+  rm $file
+  
+done
+
 
 # Clear env
 
