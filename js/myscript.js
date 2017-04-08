@@ -235,6 +235,14 @@ $(function() {
     
   });
   
+  // ----------------------------------------------------------------
+  // type-name をクリック
+  $(document).on("click", ".type-name", function() {
+    console.log("Click User name: user ID: " + $(this).attr("data-user-id"));
+    window.open("https://osu.ppy.sh/u/" + $(this).attr("data-user-id"), "_blank");
+    
+  });
+  
 });
 
 // ----------------------------------------------------------------
