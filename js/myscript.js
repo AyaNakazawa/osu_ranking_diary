@@ -358,6 +358,8 @@ function buildRanking() {
     
     if (diffStatus) {
       
+      var arrpwClass = "rank-up";
+      
       var arrowLocal = '<i class="fa fa-arrow-up" aria-hidden="true"></i>';
       var diffRankLocal = '+' + (1001 - exitRanking[exitPlayer[i]][0]) + '~';
       var diffPPAboveLocal;
@@ -391,12 +393,15 @@ function buildRanking() {
         
         if (diffRankLocal === 0) {
           arrowLocal = '<i class="fa fa-arrow-right" aria-hidden="true"></i>';
+          arrpwClass = "rank-right";
           diffRankLocal = "";
         } else if (diffRankLocal > 0) {
           arrowLocal = '<i class="fa fa-arrow-up" aria-hidden="true"></i>';
+          arrpwClass = "rank-up";
           diffRankLocal = "+" + diffRankLocal.toLocaleString();
         } else if (diffRankLocal < 0) {
           arrowLocal = '<i class="fa fa-arrow-down" aria-hidden="true"></i>';
+          arrpwClass = "rank-down";
         }
         
         if (diffAccLocal > 0) {
@@ -471,7 +476,7 @@ function buildRanking() {
         diffPPAboveLocal = diffPPAboveLocal.toLocaleString();
       }
       
-      tdArrow = '<td class="direction-arrow">' + arrowLocal + '</td>';
+      tdArrow = '<td class="direction-arrow ' + arrpwClass + '">' + arrowLocal + '</td>';
       tdDiffRank = '<td class="change-value type-int">' + diffRankLocal + '</td>';
       tdDiffPPAbove = '<td class="difference-of-above">' + diffPPAboveLocal + '</td>';
       tdDiffAcc = '<td class="change-value type-percentage">' + diffAccLocal + '</td>';

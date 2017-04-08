@@ -136,6 +136,22 @@ header {
   border-right: 0;
 }
 
+#ranking-area colgroup#col-bp {
+  background: hsla(220, 100%, 50%, .05);
+}
+
+#ranking-area colgroup#col-bonus {
+  background: hsla(220, 100%, 50%, .05);
+}
+
+#ranking-area colgroup#col-pp {
+  background: hsla(0, 100%, 50%, .05);
+}
+
+#ranking-area colgroup#col-ss-a {
+  background: hsla(0, 100%, 50%, .05);
+}
+
 /* ranking-area thead */
 
 #ranking-area thead th {
@@ -166,7 +182,7 @@ header {
 #ranking-area tbody td.difference-of-above {
   text-align: right;
   font-style: italic;
-  font-size: 10px;
+  font-size: 11px;
 }
 
 #ranking-area tbody td.type-int {
@@ -192,6 +208,22 @@ header {
 
 #ranking-area tbody td.type-name {
   cursor: pointer;
+}
+
+#ranking-area tbody td.direction-arrow {
+  text-align: center;
+}
+
+#ranking-area tbody td.rank-up {
+  color: hsla(0, 100%, 45%, 1);
+  background: hsla(0, 100%, 45%, .1);
+  border-radius: 50%;
+}
+
+#ranking-area tbody td.rank-down {
+  color: hsla(220, 100%, 45%, 1);
+  background: hsla(220, 100%, 45%, .1);
+  border-radius: 50%;
 }
 
 /* pagetop */
