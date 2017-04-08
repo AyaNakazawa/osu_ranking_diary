@@ -63,12 +63,11 @@ $(function() {
   // モード切替
   $(document).on('click', '.action-mode', function() {
     // console.log("Click Mode action: " + $(this).attr("data-mode"));
-    $(".action-mode").each(function(i, element) {
-      $(element).removeClass("current-mode");
-    })
-    $(this).addClass("current-mode");
-    rankingMode = $(this).attr("data-mode");
-    localStorage.setItem(LOCAL_STORAGE_MODE_KEY, rankingMode);
+    
+    changeMode(this);
+    
+    buildRanking();
+    
   });
   
   // ----------------------------------------------------------------
@@ -128,6 +127,41 @@ $(function() {
   });
   
   // ----------------------------------------------------------------
+  // ローカルストレージの履歴項目
+  $(document).on('click', '.action-load-item', function() {
+    // console.log("Click History item action");
+    
+    modeLocal = $(this).attr("data-mode");
+    diffLocal = $(this).attr("data-diff");
+    initDateLocal = $(this).attr("data-initDate");
+    exitDateLocal = $(this).attr("data-exitDate");
+    initRankLocal = $(this).attr("data-initRank");
+    exitRankLocal = $(this).attr("data-exitRank");
+    
+    rankingMode = modeLocal;
+    
+    changeMode($("#action-" + rankingMode));
+    
+    if (diffLocal === "true") {
+      changeViewDiff(null, true);
+      
+    } else {
+      changeViewDiff(null, false);
+      
+    }
+    
+    $("#init-date").val(initDateLocal);
+    $("#exit-date").val(exitDateLocal);
+    $("#init-rank").val(initRankLocal);
+    $("#exit-rank").val(exitRankLocal);
+    
+    updateHistory();
+    
+    buildRanking();
+    
+  });
+  
+  // ----------------------------------------------------------------
   // ローカルストレージを初期化
   $(document).on('click', '#action-reset', function() {
     // console.log("Click Reset action");
@@ -140,32 +174,9 @@ $(function() {
   $(document).on("change", "#view-column", function() {
     console.log("Change Vire difference column: " + $(this).prop("checked"));
     
-    diffStatus = toggleBoolean(diffStatus);
+    changeViewDiff(this, null);
     
-    var checkViewColumn = $(this).prop("checked");
-    
-    if (checkViewColumn) {
-      // 変動を表示
-      $("#setting-date-area > #difference-date").removeClass("display-none");
-      $("#exit-date").attr("min", initDate2);
-      fixRankDate(0);
-      
-    } else {
-      // 変動を非表示
-      $("#setting-date-area > #difference-date").addClass("display-none");
-      $("#exit-date").attr("min", initDate);
-      
-    }
-    
-    $(".change-value, .difference-of-above").each(function(i, element) {
-      if (checkViewColumn) {
-        $(element).removeClass("display-none");
-        
-      } else {
-        $(element).addClass("display-none");
-        
-      }
-    });
+    buildRanking();
     
   });
   
@@ -174,12 +185,16 @@ $(function() {
   $(document).on("change", "#init-date", function() {
     fixRankDate(0);
     
+    buildRanking();
+    
   });
   
   // ----------------------------------------------------------------
   // exit-date を変更
   $(document).on("change", "#exit-date", function() {
     fixRankDate(1);
+    
+    buildRanking();
     
   });
   
@@ -188,12 +203,16 @@ $(function() {
   $(document).on("change", "#init-rank", function() {
     fixRank(0);
     
+    buildRanking();
+    
   });
   
   // ----------------------------------------------------------------
   // exit-rank を変更
   $(document).on("change", "#exit-rank", function() {
     fixRank(1);
+    
+    buildRanking();
     
   });
   
@@ -239,12 +258,89 @@ function initializeORD(){
       $("#init-rank").tooltip();
       $("#exit-rank").tooltip();
       
-      toggleLoading();
+      buildRanking();
       
       break;
   }
   
   initializeStatus++;
+  
+}
+
+// ----------------------------------------------------------------
+// ランキングを生成
+function buildRanking() {
+  console.log("Build ranking");
+  
+  // Loading にする
+  if (!loadingStatus) {
+    toggleLoading();
+    
+  }
+  
+  console.log("Building...");
+  
+  // Loading を解除する
+  toggleLoading();
+  
+} 
+
+// ----------------------------------------------------------------
+// rankingMode を変更
+function changeMode(_element) {
+  
+  modeElement = _element || $("#action-std");
+  
+  $(".action-mode").each(function(i, element) {
+    $(element).removeClass("current-mode");
+  })
+  $(modeElement).addClass("current-mode");
+  rankingMode = $(modeElement).attr("data-mode");
+  localStorage.setItem(LOCAL_STORAGE_MODE_KEY, rankingMode);
+}
+
+// ----------------------------------------------------------------
+// diffStatus を変更
+function changeViewDiff(_element, _diffStatus) {
+  
+  checkElement = _element || $("#view-column");
+  
+  var checkViewColumn;
+  
+  if (_diffStatus === null) {
+    diffStatus = toggleBoolean(diffStatus);
+    checkViewColumn = $(checkElement).prop("checked");
+    
+  } else {
+    diffStatus = _diffStatus
+    checkViewColumn = diffStatus;
+    
+    $(checkElement).prop("checked", diffStatus);
+    
+  }
+  
+  if (checkViewColumn) {
+    // 変動を表示
+    $("#setting-date-area > #difference-date").removeClass("display-none");
+    $("#exit-date").attr("min", initDate2);
+    fixRankDate(0);
+    
+  } else {
+    // 変動を非表示
+    $("#setting-date-area > #difference-date").addClass("display-none");
+    $("#exit-date").attr("min", initDate);
+    
+  }
+  
+  $(".change-value, .difference-of-above").each(function(i, element) {
+    if (checkViewColumn) {
+      $(element).removeClass("display-none");
+      
+    } else {
+      $(element).addClass("display-none");
+      
+    }
+  });
   
 }
 
@@ -479,9 +575,17 @@ function updateHistory(_mode, _diff, _initDate, _exitDate, _initRank, _exitRank)
   var exitRankLocal = _exitRank || $("#exit-rank").val();
   
   // 履歴に追加
-  var localStorageActiveKey = modeLocal + ":" + diffLocal + ":" + initDateLocal + ":" + exitDateLocal + ":" + initRankLocal + ":" + exitRankLocal;
+  var localStorageActiveKey;
+  if (diffLocal) {
+    localStorageActiveKey = modeLocal + ":" + diffLocal + ":" + initDateLocal + ":" + exitDateLocal + ":" + initRankLocal + ":" + exitRankLocal;
+    
+  } else {
+    localStorageActiveKey = modeLocal + ":" + diffLocal + "::" + exitDateLocal + ":" + initRankLocal + ":" + exitRankLocal;
+    
+  }
+  
   var localStorageHistoryValue = localStorage.getItem(LOCAL_STORAGE_HISTORY_KEY);
-  console.log(LOCAL_STORAGE_HISTORY_KEY + " -> " + localStorageHistoryValue);
+  // console.log(LOCAL_STORAGE_HISTORY_KEY + " -> " + localStorageHistoryValue);
   
   // 履歴が存在する場合は整形
   if (localStorageHistoryValue != null) {
@@ -501,7 +605,7 @@ function updateHistory(_mode, _diff, _initDate, _exitDate, _initRank, _exitRank)
     }
   }
   
-  console.log(LOCAL_STORAGE_HISTORY_KEY + " <- " + localStorageHistoryValue);
+  // console.log(LOCAL_STORAGE_HISTORY_KEY + " <- " + localStorageHistoryValue);
   localStorage.setItem(LOCAL_STORAGE_HISTORY_KEY, localStorageHistoryValue);
   
 }
@@ -516,7 +620,7 @@ function getHistory(){
 
   // 履歴を取得
   var localStorageHistoryValue = localStorage.getItem(LOCAL_STORAGE_HISTORY_KEY);
-    console.log(LOCAL_STORAGE_HISTORY_KEY + " -> " + localStorageHistoryValue);
+    // console.log(LOCAL_STORAGE_HISTORY_KEY + " -> " + localStorageHistoryValue);
   
   // 履歴が存在する場合は整形
   if (localStorageHistoryValue != null) {
