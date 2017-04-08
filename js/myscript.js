@@ -37,7 +37,6 @@ $(function() {
   initializeORD();
   
   $(document).ajaxSuccess(function() {
-    console.log("initializeStatus: " + initializeStatus + ", loadRankingStatus: " + loadRankingStatus);
     if (initializeStatus === 1) {
       initializeORD();
       
@@ -402,46 +401,64 @@ function buildRanking() {
         
         if (diffAccLocal > 0) {
           diffAccLocal = "+" + diffAccLocal.toFixed(2) + "%";
+        } else if (diffAccLocal === 0) {
+          diffAccLocal = "";
         } else {
           diffAccLocal = diffAccLocal.toFixed(2) + "%";
         }
         if (diffPlayLocal > 0) {
           diffPlayLocal = "+" + diffPlayLocal.toLocaleString();
+        } else if (diffPlayLocal === 0) {
+          diffPlayLocal = "";
         } else {
           diffPlayLocal = diffPlayLocal.toLocaleString();
         }
         if (diffBPLocal > 0) {
           diffBPLocal = "+" + diffBPLocal.toLocaleString();
+        } else if (diffBPLocal === 0) {
+          diffBPLocal = "";
         } else {
           diffBPLocal = diffBPLocal.toLocaleString();
         }
         if (diffBonusLocal > 0) {
           diffBonusLocal = "+" + diffBonusLocal.toFixed(3).toLocaleString();
+        } else if (diffBonusLocal === 0) {
+          diffBonusLocal = "";
         } else {
           diffBonusLocal = diffBonusLocal.toFixed(3).toLocaleString();
         }
         if (diffPPLocal > 0) {
           diffPPLocal = "+" + diffPPLocal.toLocaleString();
+        } else if (diffPPLocal === 0) {
+          diffPPLocal = "";
         } else {
           diffPPLocal = diffPPLocal.toLocaleString();
         }
         if (diffSSLocal > 0) {
           diffSSLocal = "+" + diffSSLocal.toLocaleString();
+        } else if (diffSSLocal === 0) {
+          diffSSLocal = "";
         } else {
           diffSSLocal = diffSSLocal.toLocaleString();
         }
         if (diffSLocal > 0) {
           diffSLocal = "+" + diffSLocal.toLocaleString();
+        } else if (diffSLocal === 0) {
+          diffSLocal = "";
         } else {
           diffSLocal = diffSLocal.toLocaleString();
         }
         if (diffALocal > 0) {
           diffALocal = "+" + diffALocal.toLocaleString();
+        } else if (diffALocal === 0) {
+          diffALocal = "";
         } else {
           diffALocal = diffALocal.toLocaleString();
         }
         if (diffSSALocal > 0) {
           diffSSALocal = "+" + diffSSALocal.toLocaleString();
+        } else if (diffSSALocal === 0) {
+          diffSSALocal = "";
         } else {
           diffSSALocal = diffSSALocal.toLocaleString();
         }
@@ -498,6 +515,8 @@ function buildRanking() {
     $("tbody").append(tr);
     
   }
+  
+  console.log("Ranking built up");
   
   // Loading を解除する
   toggleLoading();
