@@ -29,14 +29,14 @@
           </div>
           <div class="collapse navbar-collapse" id="navbarTop">
             <ul class="nav navbar-nav">
-              <li id="action-std"><a>osu! Standard</a></li>
-              <li id="action-taiko"><a>osu!Taiko</a></li>
-              <li id="action-ctb"><a>Catch The Beat</a></li>
-              <li id="action-mania"><a>osu!mania</a></li>
+              <li id="action-std" class="action-mode" data-mode="std"><a>osu! Standard</a></li>
+              <li id="action-taiko" class="action-mode" data-mode="taiko"><a>osu!Taiko</a></li>
+              <li id="action-ctb" class="action-mode" data-mode="ctb"><a>Catch The Beat</a></li>
+              <li id="action-mania" class="action-mode" data-mode="mania"><a>osu!mania</a></li>
               <li id="action-save"><a><i class="fa fa-bookmark" aria-hidden="true"></i> Save</a></li>
               <li id="action-load" class="dropdown">
-                <a href="#" class="dropdown-toggle action-load-header" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-history" aria-hidden="true"></i> History <span class="caret"></span></a>
-                <ul class="dropdown-menu action-load-list" role="menu">
+                <a href="#" id="action-load-header" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-history" aria-hidden="true"></i> History <span class="caret"></span></a>
+                <ul id="action-load-list" class="dropdown-menu" role="menu">
                 </ul>
               </li>
               <li id="action-reset"><a><i class="fa fa-times" aria-hidden="true"></i> Reset</a></li>

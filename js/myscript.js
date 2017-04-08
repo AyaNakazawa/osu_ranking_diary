@@ -8,7 +8,7 @@ var diffStatus = true;
 
 var dateList = new Array();
 
-var rankingMode = 0;
+var rankingMode = "std";
 
 var initDate;
 var initDate2;
@@ -18,6 +18,7 @@ var exitDate;
 
 // 定数
 LOCAL_STORAGE_HISTORY_KEY = "osuRankingDiaryHistoryV1";
+LOCAL_STORAGE_MODE_KEY = "osuRankingDiaryMode";
 
 $(function() {
   
@@ -55,6 +56,62 @@ $(function() {
     // console.log("Click Title");
     
     location.reload();
+    
+  });
+  
+  // ----------------------------------------------------------------
+  // 保存
+  $(document).on('click', '#action-save', function() {
+    // console.log("Click Save action");
+    updateHistory();
+  });
+  
+  // ----------------------------------------------------------------
+  // 履歴リスト
+  $(document).on('click', '#action-load-header', function() {
+    // console.log("Click Load header action");
+    
+    $('#action-load-list').empty();
+    
+    var arrayOfHistory = getHistory();
+    
+    if (arrayOfHistory.length > 0){
+      $(arrayOfHistory).each(function() {
+        // console.log(this);
+        if (this["diff"] === "true") {
+          $('#action-load-list').append(
+            '<li class="action-load-item" ' +
+            'data-mode="' + this["mode"] + '" ' +
+            'data-diff="' + this["diff"] + '" ' +
+            'data-initDate="' + this["initDate"] + '" ' +
+            'data-exitDate="' + this["exitDate"] + '" ' +
+            'data-initRank="' + this["initRank"] + '" ' +
+            'data-exitRank="' + this["exitRank"] + '"><a>' +
+            this["mode"] + ', DATE:' + 
+            this["initDate"].substr(5, 2) + '/' + this["initDate"].substr(8) + '~' + 
+            this["exitDate"].substr(5, 2) + '/' + this["exitDate"].substr(8) + ', RANK:' + 
+            this["initRank"] + '~' + 
+            this["exitRank"] + '</a></li>'
+          );
+        } else if (this["diff"] === "false") {
+          $('#action-load-list').append(
+            '<li class="action-load-item" ' +
+            'data-mode="' + this["mode"] + '" ' +
+            'data-diff="' + this["diff"] + '" ' +
+            'data-exitDate="' + this["exitDate"] + '" ' +
+            'data-initRank="' + this["initRank"] + '" ' +
+            'data-exitRank="' + this["exitRank"] + '"><a>' +
+            this["mode"] + ', DATE:' + 
+            this["exitDate"].substr(5, 2) + '/' + this["exitDate"].substr(8) + ', RANK:' + 
+            this["initRank"] + '~' + 
+            this["exitRank"] + '</a></li>'
+          );
+        }
+        
+      });
+    } else {
+      $('#action-load-list').append('<li class="action-load-item-none"><a>Nothing</a></li>');
+    }
     
   });
   
@@ -114,7 +171,6 @@ $(function() {
     
   });
   
-  
   // ----------------------------------------------------------------
   // init-rank を変更
   $(document).on("change", "#init-rank", function() {
@@ -145,6 +201,10 @@ function initializeORD(){
       
       break;
     case 1:
+      
+      rankingMode = localStorage.getItem(LOCAL_STORAGE_MODE_KEY) || rankingMode;
+      
+      console.log(rankingMode);
       
       $("#init-date").val(initDate);
       $("#exit-date").val(exitDate);
@@ -392,18 +452,19 @@ function initializeLocalStorage(_initializeFlg) {
 
 // ----------------------------------------------------------------
 // ローカルストレージの履歴を更新
-function updateHistory(_mode, _initDate, _exitDate, _initRank, _exitRank){
+function updateHistory(_mode, _diff, _initDate, _exitDate, _initRank, _exitRank){
   
   var arrayOfHistoryValue;
   
   var modeLocal = _mode || rankingMode;
+  var diffLocal = _diff || diffStatus;
   var initDateLocal = _initDate || $("#init-date").val();
   var exitDateLocal = _exitDate || $("#exit-date").val();
   var initRankLocal = _initRank || $("#init-rank").val();
   var exitRankLocal = _exitRank || $("#exit-rank").val();
   
   // 履歴に追加
-  var localStorageActiveKey = modeLocal + ":" + initDateLocal + ":" + exitDateLocal + ":" + initRankLocal + ":" + exitRankLocal;
+  var localStorageActiveKey = modeLocal + ":" + diffLocal + ":" + initDateLocal + ":" + exitDateLocal + ":" + initRankLocal + ":" + exitRankLocal;
   var localStorageHistoryValue = localStorage.getItem(LOCAL_STORAGE_HISTORY_KEY);
   console.log(LOCAL_STORAGE_HISTORY_KEY + " -> " + localStorageHistoryValue);
   
@@ -451,10 +512,11 @@ function getHistory(){
       var arrayOfHistoryItem = arrayOfHistoryValue[i].split(":");
       arrayOfHistory[i] = {
         "mode": arrayOfHistoryItem[0],
-        "initDate": arrayOfHistoryItem[1],
-        "exitDate": arrayOfHistoryItem[2],
-        "initRank": arrayOfHistoryItem[3],
-        "exitRank": arrayOfHistoryItem[4]
+        "diff": arrayOfHistoryItem[1],
+        "initDate": arrayOfHistoryItem[2],
+        "exitDate": arrayOfHistoryItem[3],
+        "initRank": arrayOfHistoryItem[4],
+        "exitRank": arrayOfHistoryItem[5]
       };
     }
   }
