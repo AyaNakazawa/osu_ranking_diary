@@ -16,6 +16,9 @@ var initDate2;
 var exitDate2;
 var exitDate;
 
+var initRank;
+var exitRank;
+
 var initRanking = new Array([]);
 var exitRanking = new Array([]);
 
@@ -296,13 +299,103 @@ function buildRanking() {
   
   $("tbody").empty();
   
+  var tr;
+
+  var tdRank;
+  var tdName;
+  var tdAcc;
+  var tdPlay;
+  var tdBP;
+  var tdBonus;
+  var tdPP;
+  var tdSS;
+  var tdS;
+  var tdA;
+  var tdSSA;
+  
+  var tdArrow = '<td class="direction-arrow display-none"></td>';
+  var tdDiffRank = '<td class="change-value type-int display-none"></td>';
+  var tdDiffPPAbove = '<td class="difference-of-above display-none"></td>';
+  var tdDiffAcc = '<td class="change-value type-percentage display-none"></td>';
+  var tdDiffPlay = '<td class="change-value type-int display-none"></td>';
+  var tdDiffBP = '<td class="change-value type-int display-none"></td>';
+  var tdDiffBonus = '<td class="change-value type-float display-none"></td>';
+  var tdDiffPP = '<td class="change-value type-int display-none"></td>';
+  var tdDiffSS = '<td class="change-value type-int display-none"></td>';
+  var tdDiffS = '<td class="change-value type-int display-none"></td>';
+  var tdDiffA = '<td class="change-value type-int display-none"></td>';
+  var tdDiffSSA = '<td class="change-value type-int display-none"></td>';
+  
   if (diffStatus) {
     console.log("initRanking: ");
     console.log(initRanking);
+    
+    tdArrow = '<td class="direction-arrow">';
+    tdDiffRank = '<td class="change-value type-int">';
+    tdDiffPPAbove = '<td class="difference-of-above">';
+    tdDiffAcc = '<td class="change-value type-percentage">';
+    tdDiffPlay = '<td class="change-value type-int">';
+    tdDiffBP = '<td class="change-value type-int">';
+    tdDiffBonus = '<td class="change-value type-float">';
+    tdDiffPP = '<td class="change-value type-int">';
+    tdDiffSS = '<td class="change-value type-int">';
+    tdDiffS = '<td class="change-value type-int">';
+    tdDiffA = '<td class="change-value type-int">';
+    tdDiffSSA = '<td class="change-value type-int">';
+    
   }
   
   console.log("exitRanking: ");
   console.log(exitRanking);
+  
+  for (var i = initRank - 1; i <= exitRank - 1; i++) {
+    
+    var ssaLocal = 1 * exitRanking[i][5] + exitRanking[i][6] + exitRanking[i][7];
+    // 416.6667 (1- 0.9994^Number_of_scores)
+    var bonusLocal = 416.6667 * (1 - Math.pow(0.9994, ssaLocal));
+    var bpLocal = Math.floor(1 * exitRanking[i][4] - bonusLocal);
+    
+    tdRank = '<td class="current-value type-rank">#' + exitRanking[i][0].toLocaleString() + '</td>';
+    tdName = '<td class="current-value type-string type-name" data-user-id="' + exitRanking[i][8] + '">' + exitRanking[i][1] + '</td>';
+    tdAcc = '<td class="current-value type-percentage">' + exitRanking[i][2] + '%</td>';
+    tdPlay = '<td class="current-value type-int">' + exitRanking[i][3].toLocaleString() + '</td>';
+    tdBP = '<td class="current-value type-int">' + bpLocal.toLocaleString() + '</td>';
+    tdBonus = '<td class="current-value type-float">' + bonusLocal.toLocaleString() + '</td>';
+    tdPP = '<td class="current-value type-int">' + exitRanking[i][4].toLocaleString() + '</td>';
+    tdSS = '<td class="current-value type-int">' + exitRanking[i][5].toLocaleString() + '</td>';
+    tdS = '<td class="current-value type-int">' + exitRanking[i][6].toLocaleString() + '</td>';
+    tdA = '<td class="current-value type-int">' + exitRanking[i][7].toLocaleString() + '</td>';
+    tdSSA = '<td class="current-value type-int">' + ssaLocal.toLocaleString() + '</td>';
+    
+    tr = '<tr>';
+    tr += tdArrow;
+    tr += tdDiffRank;
+    tr += tdRank;
+    tr += tdName;
+    tr += tdDiffPPAbove;
+    tr += tdDiffAcc;
+    tr += tdAcc;
+    tr += tdDiffPlay;
+    tr += tdPlay;
+    tr += tdDiffBP;
+    tr += tdBP;
+    tr += tdDiffBonus;
+    tr += tdBonus;
+    tr += tdDiffPP;
+    tr += tdPP;
+    tr += tdDiffSS;
+    tr += tdSS;
+    tr += tdDiffS;
+    tr += tdS;
+    tr += tdDiffA;
+    tr += tdA;
+    tr += tdDiffSSA;
+    tr += tdSSA;
+    tr += '</tr>';
+    
+    $("tbody").append(tr);
+    
+  }
   
   // Loading を解除する
   toggleLoading();
@@ -340,6 +433,9 @@ function getRanking(_date, _initRank, _exitRank) {
   var dateLocal = _date || getDateString(new Date(), "%Y-%m-%d");
   var initRankLocal = 1 * _initRank || initRank;
   var exitRankLocal = 1 * _exitRank || exitRank;
+  
+  initRank = initRankLocal;
+  exitRank = exitRankLocal;
   
   dateLocal = new Date(dateLocal);
   
@@ -452,7 +548,7 @@ function changeViewDiff(_element, _diffStatus) {
     
   }
   
-  $(".change-value, .difference-of-above").each(function(i, element) {
+  $(".change-value, .difference-of-above, .direction-arrow").each(function(i, element) {
     if (checkViewColumn) {
       $(element).removeClass("display-none");
       
