@@ -8,6 +8,8 @@ var diffStatus = true;
 
 var dateList = new Array();
 
+var rankingMode = 0;
+
 var initDate;
 var initDate2;
 var exitDate2;
@@ -15,7 +17,7 @@ var exitDate;
 
 
 // 定数
-
+LOCAL_STORAGE_HISTORY_KEY = "osuRankingDiaryHistoryV1";
 
 $(function() {
   
@@ -386,6 +388,46 @@ function initializeLocalStorage(_initializeFlg) {
     localStorage.clear();
     
   }
+}
+
+// ----------------------------------------------------------------
+// ローカルストレージを更新
+function updateHistory(_mode, _initDate, _exitDate, _initRank, _exitRank){
+  
+  var arrayOfHistoryValue;
+  
+  var modeLocal = _mode || rankingMode;
+  var initDateLocal = _initDate || $("#init-date").val();
+  var exitDateLocal = _exitDate || $("#exit-date").val();
+  var initRankLocal = _initRank || $("#init-rank").val();
+  var exitRankLocal = _exitRank || $("#exit-rank").val();
+  
+  // 履歴に追加
+  var localStorageActiveKey = modeLocal + ":" + initDateLocal ":" + exitDateLocal ":" + initRankLocal ":" + exitRankLocal;
+  var localStorageHistoryValue = localStorage.getItem(LOCAL_STORAGE_HISTORY_KEY);
+  console.log(LOCAL_STORAGE_HISTORY_KEY + " -> " + localStorageHistoryValue);
+  
+  // 履歴が存在する場合は整形
+  if (localStorageHistoryValue != null) {
+    localStorageHistoryValue = localStorageHistoryValue.replace(/\s+/g, "");
+    arrayOfHistoryValue = localStorageHistoryValue.split(",");
+  }
+  
+  localStorageHistoryValue = localStorageActiveKey;
+  
+  if (arrayOfHistoryValue != null) {
+    for (var i = 0; i < arrayOfHistoryValue.length; i++) {
+      if (arrayOfHistoryValue[i] === localStorageActiveKey) {
+        continue;
+      }
+      localStorageHistoryValue += ", " + arrayOfHistoryValue[i];
+      
+    }
+  }
+  
+  console.log(LOCAL_STORAGE_HISTORY_KEY + " <- " + localStorageHistoryValue);
+  localStorage.setItem(LOCAL_STORAGE_HISTORY_KEY, localStorageHistoryValue);
+  
 }
 
 // ----------------------------------------------------------------
