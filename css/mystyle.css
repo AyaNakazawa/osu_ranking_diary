@@ -61,8 +61,23 @@ header {
   cursor: pointer;
 }
 
-.nav .current-mode {
+.navbar-default .navbar-nav li:hover {
   background: #e0dcea;
+  border-radius: 8px;
+}
+
+.navbar-default .navbar-nav .open a:hover {
+  background: #f0ecfa;
+}
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus {
+  background: #d0ccda;
+  border: 1px dotted #bbb;
+  border-radius: 8px;
+}
+
+.nav .current-mode {
+  background: #d0ccda;
   border: 1px dotted #bbb;
   border-radius: 8px;
 }
