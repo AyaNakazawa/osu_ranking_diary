@@ -391,7 +391,7 @@ function initializeLocalStorage(_initializeFlg) {
 }
 
 // ----------------------------------------------------------------
-// ローカルストレージを更新
+// ローカルストレージの履歴を更新
 function updateHistory(_mode, _initDate, _exitDate, _initRank, _exitRank){
   
   var arrayOfHistoryValue;
@@ -403,7 +403,7 @@ function updateHistory(_mode, _initDate, _exitDate, _initRank, _exitRank){
   var exitRankLocal = _exitRank || $("#exit-rank").val();
   
   // 履歴に追加
-  var localStorageActiveKey = modeLocal + ":" + initDateLocal ":" + exitDateLocal ":" + initRankLocal ":" + exitRankLocal;
+  var localStorageActiveKey = modeLocal + ":" + initDateLocal + ":" + exitDateLocal + ":" + initRankLocal + ":" + exitRankLocal;
   var localStorageHistoryValue = localStorage.getItem(LOCAL_STORAGE_HISTORY_KEY);
   console.log(LOCAL_STORAGE_HISTORY_KEY + " -> " + localStorageHistoryValue);
   
