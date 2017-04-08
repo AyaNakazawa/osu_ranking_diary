@@ -60,6 +60,13 @@ $(function() {
   });
   
   // ----------------------------------------------------------------
+  // モード切替
+  $(document).on('click', '.action-mode', function() {
+    // console.log("Click Mode action: " + $(this).attr("data-mode"));
+    rankingMode = $(this).attr("data-mode");
+  });
+  
+  // ----------------------------------------------------------------
   // 保存
   $(document).on('click', '#action-save', function() {
     // console.log("Click Save action");
