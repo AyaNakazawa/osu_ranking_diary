@@ -5,6 +5,7 @@ var localStorageFlg = true;
 var initializeStatus = 0;
 var loadingStatus = true;
 var diffStatus = true;
+var loadRankingStatus = 0;
 
 var dateList = new Array();
 
@@ -30,7 +31,15 @@ $(function() {
   initializeORD();
   
   $(document).ajaxSuccess(function() {
-    initializeORD();
+    if (initializeStatus === 1) {
+      initializeORD();
+      
+    } else if (initializeStatus === 2) {
+      if (loadRankingStatus === 0) {
+        buildRanking();
+        
+      }
+    }
   });
   
   // ----------------------------------------------------------------
@@ -49,14 +58,14 @@ $(function() {
   // ----------------------------------------------------------------
   // トップまでのスクロール
   $(document).on('click', '#pagetop', function() {
-    // console.log("Scroll to Top");
+    console.log("Scroll to Top");
     $('body,html').animate({scrollTop:0}, 500);
   });
   
   // ----------------------------------------------------------------
   // タイトル
   $(document).on('click', '#title', function() {
-    // console.log("Click Title");
+    console.log("Click Title");
     
     location.reload();
     
@@ -65,25 +74,25 @@ $(function() {
   // ----------------------------------------------------------------
   // モード切替
   $(document).on('click', '.action-mode', function() {
-    // console.log("Click Mode action: " + $(this).attr("data-mode"));
+    console.log("Click Mode action: " + $(this).attr("data-mode"));
     
     changeMode(this);
     
-    buildRanking();
+    loadRanking();
     
   });
   
   // ----------------------------------------------------------------
   // ローカルストレージに保存
   $(document).on('click', '#action-save', function() {
-    // console.log("Click Save action");
+    console.log("Click Save action");
     updateHistory();
   });
   
   // ----------------------------------------------------------------
   // ローカルストレージの履歴リスト
   $(document).on('click', '#action-load-header', function() {
-    // console.log("Click Load header action");
+    console.log("Click Load header action");
     
     $('#action-load-list').empty();
     
@@ -132,7 +141,7 @@ $(function() {
   // ----------------------------------------------------------------
   // ローカルストレージの履歴項目
   $(document).on('click', '.action-load-item', function() {
-    // console.log("Click History item action");
+    console.log("Click History item action");
     
     modeLocal = $(this).attr("data-mode");
     diffLocal = $(this).attr("data-diff");
@@ -160,14 +169,14 @@ $(function() {
     
     updateHistory();
     
-    buildRanking();
+    loadRanking();
     
   });
   
   // ----------------------------------------------------------------
   // ローカルストレージを初期化
   $(document).on('click', '#action-reset', function() {
-    // console.log("Click Reset action");
+    console.log("Click Reset action");
     
     showConfirmDialog("ローカルストレージの初期化", "<p>ローカルストレージに保存されている内容を全て初期化します。<br>よろしいですか？</p>", initializeLocalStorage)
   });
@@ -175,47 +184,51 @@ $(function() {
   // ----------------------------------------------------------------
   // View difference columnを変更
   $(document).on("change", "#view-column", function() {
-    console.log("Change Vire difference column: " + $(this).prop("checked"));
+    console.log("Change View difference column: " + $(this).prop("checked"));
     
     changeViewDiff(this, null);
     
-    buildRanking();
+    loadRanking();
     
   });
   
   // ----------------------------------------------------------------
   // init-date を変更
   $(document).on("change", "#init-date", function() {
+    console.log("Change Init date: " + $(this).val());
     fixRankDate(0);
     
-    buildRanking();
+    loadRanking();
     
   });
   
   // ----------------------------------------------------------------
   // exit-date を変更
   $(document).on("change", "#exit-date", function() {
+    console.log("Change Exit date: " + $(this).val());
     fixRankDate(1);
     
-    buildRanking();
+    loadRanking();
     
   });
   
   // ----------------------------------------------------------------
   // init-rank を変更
   $(document).on("change", "#init-rank", function() {
+    console.log("Change Init rank: " + $(this).val());
     fixRank(0);
     
-    buildRanking();
+    loadRanking();
     
   });
   
   // ----------------------------------------------------------------
   // exit-rank を変更
   $(document).on("change", "#exit-rank", function() {
+    console.log("Change Exit rank: " + $(this).val());
     fixRank(1);
     
-    buildRanking();
+    loadRanking();
     
   });
   
@@ -261,18 +274,7 @@ function initializeORD(){
       $("#init-rank").tooltip();
       $("#exit-rank").tooltip();
       
-      initRanking = getRanking(
-        $("#init-date").val(),
-        1 * $("#init-rank").val(),
-        1 * $("#exit-rank").val()
-      );
-      exitRanking = getRanking(
-        $("#exit-date").val(),
-        1 * $("#init-rank").val(),
-        1 * $("#exit-rank").val()
-      );
-      
-      buildRanking(initRanking, exitRanking);
+      loadRanking();
       
       break;
   }
@@ -284,7 +286,22 @@ function initializeORD(){
 // ----------------------------------------------------------------
 // ランキングを生成
 function buildRanking() {
-  console.log("Build ranking");
+  console.log("Ranking building...");
+  
+  
+  
+  // Loading を解除する
+  toggleLoading();
+  
+}
+  
+// ----------------------------------------------------------------
+// ランキングを読み込み
+// ajax
+function loadRanking() {
+  console.log("Ranking loading...");
+  
+  loadRankingStatus = 0;
   
   // Loading にする
   if (!loadingStatus) {
@@ -292,20 +309,54 @@ function buildRanking() {
     
   }
   
-  console.log("Building...");
+  if (diffStatus) {
+    console.log("init ranking loading...");
+    initRanking = getRanking(
+      $("#init-date").val(),
+      1 * $("#init-rank").val(),
+      1 * $("#exit-rank").val()
+    );
+    
+  }
   
-  // Loading を解除する
-  toggleLoading();
+  console.log("exit ranking loading...");
+  exitRanking = getRanking(
+    $("#exit-date").val(),
+    1 * $("#init-rank").val(),
+    1 * $("#exit-rank").val()
+  );
   
 } 
 
 // ----------------------------------------------------------------
 // ランキングをファイルから取得
 function getRanking(_date, _initRank, _exitRank) {
-  dateLocal = _date || getDateString(new Date(), "%Y-%m-%d");
-  initRankLocal = _initRank || initRank;
-  exitRankLocal = _exitRank || exitRank;
+  var dateLocal = _date || getDateString(new Date(), "%Y-%m-%d");
+  var initRankLocal = 1 * _initRank || initRank;
+  var exitRankLocal = 1 * _exitRank || exitRank;
   
+  dateLocal = new Date(dateLocal);
+  
+  initJsonId = Math.floor((initRankLocal - 1) / 50) + 1;
+  exitJsonId = Math.floor((exitRankLocal - 1) / 50) + 1;
+  diffJsonId = exitJsonId - initJsonId;
+  
+  loadRankingStatus += diffJsonId + 1;
+  
+  for (var jsonId = initJsonId; jsonId <= exitJsonId; jsonId++) {
+    var rankingFileName = 'rank_data/';
+    rankingFileName += getDateString(dateLocal, "%Y/%m/%d");
+    rankingFileName += "/" + rankingMode;
+    rankingFileName += "/ranking-" + jsonId + ".json";
+    
+    $.getJSON(rankingFileName, function(_json, _textStatus) {
+        // console.log(_json);
+        // console.log("_textStatus: " + _textStatus);
+        
+        loadRankingStatus--;
+        
+    });
+  }
 }
 
 // ----------------------------------------------------------------
