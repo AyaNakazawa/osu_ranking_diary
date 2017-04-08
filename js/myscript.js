@@ -261,6 +261,12 @@ function initializeORD(){
       $("#init-rank").val(1);
       $("#exit-rank").val(100);
       
+      // ランキングデータが1日分しかないときは変動を表示できないようにする
+      if (initDate === exitDate) {
+        changeViewDiff(null, false);
+        $("#setting-view-column-area").addClass("display-none");
+      }
+      
       // tooltip をつける
       
       $("#view-column-label").tooltip({placement: "left"});
@@ -288,8 +294,13 @@ function initializeORD(){
 function buildRanking() {
   console.log("Ranking building...");
   
-  console.log("initRanking: ");
-  console.log(initRanking);
+  $("tbody").empty();
+  
+  if (diffStatus) {
+    console.log("initRanking: ");
+    console.log(initRanking);
+  }
+  
   console.log("exitRanking: ");
   console.log(exitRanking);
   
