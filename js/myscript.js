@@ -63,18 +63,23 @@ $(function() {
   // モード切替
   $(document).on('click', '.action-mode', function() {
     // console.log("Click Mode action: " + $(this).attr("data-mode"));
+    $(".action-mode").each(function(i, element) {
+      $(element).removeClass("current-mode");
+    })
+    $(this).addClass("current-mode");
     rankingMode = $(this).attr("data-mode");
+    localStorage.setItem(LOCAL_STORAGE_MODE_KEY, rankingMode);
   });
   
   // ----------------------------------------------------------------
-  // 保存
+  // ローカルストレージに保存
   $(document).on('click', '#action-save', function() {
     // console.log("Click Save action");
     updateHistory();
   });
   
   // ----------------------------------------------------------------
-  // 履歴リスト
+  // ローカルストレージの履歴リスト
   $(document).on('click', '#action-load-header', function() {
     // console.log("Click Load header action");
     
@@ -211,7 +216,10 @@ function initializeORD(){
       
       rankingMode = localStorage.getItem(LOCAL_STORAGE_MODE_KEY) || rankingMode;
       
-      console.log(rankingMode);
+      $(".action-mode").each(function(i, element) {
+        $(element).removeClass("current-mode");
+      })
+      $("#action-" + rankingMode).addClass("current-mode");
       
       $("#init-date").val(initDate);
       $("#exit-date").val(exitDate);

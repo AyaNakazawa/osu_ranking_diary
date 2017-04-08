@@ -61,6 +61,12 @@ header {
   cursor: pointer;
 }
 
+.nav .current-mode {
+  background: #e0dcea;
+  border: 1px dotted #bbb;
+  border-radius: 8px;
+}
+
 /* main */
 
 #main {
