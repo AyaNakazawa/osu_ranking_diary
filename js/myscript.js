@@ -15,6 +15,9 @@ var initDate2;
 var exitDate2;
 var exitDate;
 
+var initRanking = new Array();
+var exitRanking = new Array();
+
 
 // 定数
 LOCAL_STORAGE_HISTORY_KEY = "osuRankingDiaryHistoryV1";
@@ -258,7 +261,18 @@ function initializeORD(){
       $("#init-rank").tooltip();
       $("#exit-rank").tooltip();
       
-      buildRanking();
+      initRanking = getRanking(
+        $("#init-date").val(),
+        1 * $("#init-rank").val(),
+        1 * $("#exit-rank").val()
+      );
+      exitRanking = getRanking(
+        $("#exit-date").val(),
+        1 * $("#init-rank").val(),
+        1 * $("#exit-rank").val()
+      );
+      
+      buildRanking(initRanking, exitRanking);
       
       break;
   }
@@ -284,6 +298,15 @@ function buildRanking() {
   toggleLoading();
   
 } 
+
+// ----------------------------------------------------------------
+// ランキングをファイルから取得
+function getRanking(_date, _initRank, _exitRank) {
+  dateLocal = _date || getDateString(new Date(), "%Y-%m-%d");
+  initRankLocal = _initRank || initRank;
+  exitRankLocal = _exitRank || exitRank;
+  
+}
 
 // ----------------------------------------------------------------
 // rankingMode を変更
