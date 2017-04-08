@@ -7,7 +7,7 @@ var loadingStatus = true;
 var diffStatus = true;
 var loadRankingStatus = 0;
 
-var dateList = new Array();
+var dateList = [];
 
 var rankingMode = "std";
 
@@ -16,8 +16,8 @@ var initDate2;
 var exitDate2;
 var exitDate;
 
-var initRanking = new Array();
-var exitRanking = new Array();
+var initRanking = new Array([]);
+var exitRanking = new Array([]);
 
 
 // 定数
@@ -288,7 +288,10 @@ function initializeORD(){
 function buildRanking() {
   console.log("Ranking building...");
   
-  
+  console.log("initRanking: ");
+  console.log(initRanking);
+  console.log("exitRanking: ");
+  console.log(exitRanking);
   
   // Loading を解除する
   toggleLoading();
@@ -311,20 +314,12 @@ function loadRanking() {
   
   if (diffStatus) {
     console.log("init ranking loading...");
-    initRanking = getRanking(
-      $("#init-date").val(),
-      1 * $("#init-rank").val(),
-      1 * $("#exit-rank").val()
-    );
+    getRanking($("#init-date").val(), 1 * $("#init-rank").val(), 1 * $("#exit-rank").val());
     
   }
   
   console.log("exit ranking loading...");
-  exitRanking = getRanking(
-    $("#exit-date").val(),
-    1 * $("#init-rank").val(),
-    1 * $("#exit-rank").val()
-  );
+  getRanking($("#exit-date").val(), 1 * $("#init-rank").val(), 1 * $("#exit-rank").val());
   
 } 
 
@@ -350,15 +345,51 @@ function getRanking(_date, _initRank, _exitRank) {
     rankingFileName += "/ranking-" + jsonId + ".json";
     
     $.getJSON(rankingFileName, function(_json, _textStatus) {
-        // console.log(_json);
-        // console.log("_textStatus: " + _textStatus);
-        
+      // console.log(_json);
+      // console.log("_textStatus: " + _textStatus);
+      
+      var dateSwitch;
+      if (_json["date"] === $("#init-date").val()) {
+        dateSwitch = true;
+      } else if (_json["date"] === $("#exit-date").val()) {
+        dateSwitch = false;
+      }
+      
+      if (dateSwitch != null) {
         $(Object.keys(_json)).each(function(i, playerKey) {
-          console.log(_json[playerKey]);
+          if (i === 0) {
+            return true;
+          }
+          var rankLocal = 1 * _json[playerKey]["rank"];
+          var nameLocal = _json[playerKey]["name"];
+          var accLocal = 1 * _json[playerKey]["acc"];
+          var playLocal = 1 * _json[playerKey]["play"];
+          var ppLocal = 1 * _json[playerKey]["pp"];
+          var ssLocal = 1 * _json[playerKey]["ss"];
+          var sLocal = 1 * _json[playerKey]["s"];
+          var aLocal = 1 * _json[playerKey]["a"];
+          var idLocal = _json[playerKey]["id"];
+          
+          var player = [];
+          player.push(rankLocal);
+          player.push(nameLocal);
+          player.push(accLocal);
+          player.push(playLocal);
+          player.push(ppLocal);
+          player.push(ssLocal);
+          player.push(sLocal);
+          player.push(aLocal);
+          player.push(idLocal);
+          
+          if (!dateSwitch) {
+            initRanking[rankLocal - 1] = player;
+          } else {
+            exitRanking[rankLocal - 1] = player;
+          }
         });
         
         loadRankingStatus--;
-        
+      }
     });
   }
 }
