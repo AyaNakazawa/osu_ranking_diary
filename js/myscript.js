@@ -431,6 +431,39 @@ function updateHistory(_mode, _initDate, _exitDate, _initRank, _exitRank){
 }
 
 // ----------------------------------------------------------------
+// ローカルストレージの履歴を取得
+function getHistory(){
+  // console.log("Get history");
+  
+  var arrayOfHistoryValue;
+  var arrayOfHistory = [];
+
+  // 履歴を取得
+  var localStorageHistoryValue = localStorage.getItem(LOCAL_STORAGE_HISTORY_KEY);
+    console.log(LOCAL_STORAGE_HISTORY_KEY + " -> " + localStorageHistoryValue);
+  
+  // 履歴が存在する場合は整形
+  if (localStorageHistoryValue != null) {
+    localStorageHistoryValue = localStorageHistoryValue.replace(/\s+/g, "");
+    arrayOfHistoryValue = localStorageHistoryValue.split(",");
+    
+    for (var i = 0; i < arrayOfHistoryValue.length; i++) {
+      var arrayOfHistoryItem = arrayOfHistoryValue[i].split(":");
+      arrayOfHistory[i] = {
+        "mode": arrayOfHistoryItem[0],
+        "initDate": arrayOfHistoryItem[1],
+        "exitDate": arrayOfHistoryItem[2],
+        "initRank": arrayOfHistoryItem[3],
+        "exitRank": arrayOfHistoryItem[4]
+      };
+    }
+  }
+  
+  // console.log(arrayOfHistory);
+  return arrayOfHistory;
+}
+
+// ----------------------------------------------------------------
 // 通常モーダルウィンドウ
 function showDialog(_dialogTitle, _dialogContent) {
   var dialogTitle = _dialogTitle || "タイトル";
