@@ -210,6 +210,11 @@ header {
   cursor: pointer;
 }
 
+#ranking-area tbody td.type-name:hover {
+  color: hsla(220, 100%, 35%, 1);
+  text-decoration: underline;
+}
+
 #ranking-area tbody td.direction-arrow {
   text-align: center;
 }

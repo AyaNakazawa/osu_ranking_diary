@@ -37,9 +37,6 @@ for ((i=1; i <= $rankingFiles; i++)); do
   
 done
 
-echo Waiting 20s...
-sleep 20s
-
 # osu!Taiko
 echo Downloading osu!Taiko ranking...
 
@@ -54,9 +51,6 @@ for ((i=1; i <= $rankingFiles; i++)); do
   
 done
 
-echo Waiting 20s...
-sleep 20s
-
 # Catch The Beat
 echo Downloading Catch The Beat ranking...
 
@@ -70,9 +64,6 @@ for ((i=1; i <= $rankingFiles; i++)); do
   rm $file
   
 done
-
-echo Waiting 20s...
-sleep 20s
 
 # osu!mania
 echo Downloading osu!mania ranking...

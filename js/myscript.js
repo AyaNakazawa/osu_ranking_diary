@@ -361,7 +361,7 @@ function buildRanking() {
       var arrpwClass = "rank-up";
       
       var arrowLocal = '<i class="fa fa-arrow-up" aria-hidden="true"></i>';
-      var diffRankLocal = '+' + (1001 - exitRanking[exitPlayer[i]][0]) + '~';
+      var diffRankLocal = '+' + ((exitRank + 1) - exitRanking[exitPlayer[i]][0]) + '~';
       var diffPPAboveLocal;
       var diffAccLocal = "";
       var diffPlayLocal = "";
@@ -392,7 +392,7 @@ function buildRanking() {
         diffSSALocal = ssaLocalExit - ssaLocalInit;
         
         if (diffRankLocal === 0) {
-          arrowLocal = '<i class="fa fa-arrow-right" aria-hidden="true"></i>';
+          arrowLocal = '';
           arrpwClass = "rank-right";
           diffRankLocal = "";
         } else if (diffRankLocal > 0) {
