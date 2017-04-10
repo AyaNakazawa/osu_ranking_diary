@@ -24,7 +24,7 @@ a:hover {
 /* content */
 
 #content {
-  width: 90%;
+  width: 98%;
   margin: 20px auto;
   padding: 20px 0 0;
   background: #f0ecfa;
@@ -85,7 +85,9 @@ header {
 /* main */
 
 #main {
-  margin: 20px;
+  margin: 20px 0;
+  padding: 0 1%;
+  width: 100%;
 }
 
 #loading {
@@ -319,6 +321,11 @@ footer {
 
 @media (min-width: 1366px) {
   
+  #content {
+    width: 90%;
+    margin: 20px auto;
+  }
+  
   /*#content {
     width: 1232px;
     
@@ -328,7 +335,7 @@ footer {
 
  /*debug */
 
-body:before {
+/*body:before {
   content: '- mini -';
 }
 
@@ -346,4 +353,4 @@ body:before {
   body:before {
     content: '- wide -';
   }
-}
+}*/
