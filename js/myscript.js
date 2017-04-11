@@ -184,7 +184,7 @@ $(function() {
   $(document).on('click', '#action-reset', function() {
     console.log("Click Reset action");
     
-    showConfirmDialog("ローカルストレージの初期化", "<p>ローカルストレージに保存されている内容を全て初期化します。<br>よろしいですか？</p>", initializeLocalStorage)
+    showConfirmDialog("履歴の初期化", "<p>履歴を削除します。<br>よろしいですか？</p>", initializeLocalStorage)
   });
   
   // ----------------------------------------------------------------
