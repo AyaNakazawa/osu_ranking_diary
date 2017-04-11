@@ -350,7 +350,7 @@ function buildRanking() {
     tdPlay = '<td class="current-value type-int">' + exitRanking[exitPlayer[i]][3].toLocaleString() + '</td>';
     tdBP = '<td class="current-value type-int">' + bpLocalExit.toLocaleString() + '</td>';
     tdBonus = '<td class="current-value type-float">' + bonusLocalExit.toFixed(3).toLocaleString() + '</td>';
-    tdPP = '<td class="current-value type-int">' + exitRanking[exitPlayer[i]][4].toLocaleString() + '</td>';
+    tdPP = '<td class="current-value type-int type-pp">' + exitRanking[exitPlayer[i]][4].toLocaleString() + 'pp</td>';
     tdSS = '<td class="current-value type-int">' + exitRanking[exitPlayer[i]][5].toLocaleString() + '</td>';
     tdS = '<td class="current-value type-int">' + exitRanking[exitPlayer[i]][6].toLocaleString() + '</td>';
     tdA = '<td class="current-value type-int">' + exitRanking[exitPlayer[i]][7].toLocaleString() + '</td>';

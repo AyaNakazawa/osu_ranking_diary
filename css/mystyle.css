@@ -209,11 +209,11 @@ header {
 }
 
 #ranking-area tbody td.type-name {
+  color: hsla(220, 50%, 50%, 1);
   cursor: pointer;
 }
 
 #ranking-area tbody td.type-name:hover {
-  color: hsla(220, 100%, 35%, 1);
   text-decoration: underline;
 }
 
@@ -231,6 +231,10 @@ header {
   color: hsla(220, 100%, 45%, 1);
   background: hsla(220, 100%, 45%, .1);
   border-radius: 50%;
+}
+
+#ranking-area tbody td.type-pp {
+  font-weight: bold;
 }
 
 /* pagetop */
